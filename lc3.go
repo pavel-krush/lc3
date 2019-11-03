@@ -68,7 +68,7 @@ var ErrBadInstruction = errors.New("bad instruction")
 var ErrNotRunning = errors.New("vm is not running")
 
 type VM struct {
-	memory               [math.MaxUint16]Word
+	memory               [math.MaxUint16 + 1]Word
 	registers            [10]Word
 	running              bool
 	instructionsExecuted uint
@@ -308,4 +308,12 @@ func (m *VM) IsRunning() bool {
 
 func (m *VM) GetRegister(register int) Word {
 	return m.registers[register]
+}
+
+func (m *VM) GetMemorySize() int {
+	return math.MaxUint16
+}
+
+func (w Word) Int() int {
+	return int(int16(w))
 }

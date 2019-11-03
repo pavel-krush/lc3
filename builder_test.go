@@ -52,6 +52,15 @@ func Test_signCompress(t *testing.T) {
 	}
 }
 
+func Test_NewBRInvalid(t *testing.T) {
+	NewBR(0, 0)
+	defer func() {
+		if r := recover(); r == nil {
+			t.Errorf("panic expected for NewBR(false, false, false, 0)")
+		}
+	}()
+}
+
 func Test_NewBR(t *testing.T) {
 	type testCase struct {
 		n         bool

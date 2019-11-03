@@ -67,7 +67,11 @@ func encodeBR(instruction Word) string {
 		/* 110 */ 6: "BRNZ",
 		/* 111 */ 7: "BRNZP",
 	}
-	return fmt.Sprintf("%s %s", flagsMapping[getNBits(instruction, 9, 3)], encodeNumericLiteral(getNBitsExtended(instruction, 0, 9)))
+	flags := getNBits(instruction, 9, 3)
+	if flags == 0 {
+		return "NOP"
+	}
+	return fmt.Sprintf("%s %s", flagsMapping[flags], encodeNumericLiteral(getNBitsExtended(instruction, 0, 9)))
 }
 
 func encodeAdd(instruction Word) string {
