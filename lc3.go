@@ -2,9 +2,7 @@ package lc3
 
 import (
 	"errors"
-	"fmt"
 	"math"
-	"time"
 )
 
 // CPU word size
@@ -248,14 +246,12 @@ func (m *VM) Step() error {
 		vector := getNBitsExtended(instruction, 0, 8)
 		switch vector {
 		case TrapVectGetc:
-			fmt.Printf("getching()\n")
-			ch := <-m.Stdin
-			m.registers[RegR0] = ch
-			fmt.Printf("gotch()\n")
+			//ch := <-m.Stdin
+			//m.registers[RegR0] = ch
 		case TrapVectOut:
-			fmt.Printf("%c", m.registers[RegR0] & 0xff)
+			//fmt.Printf("%c", m.registers[RegR0] & 0xff)
 		case TrapVectPuts:
-			ptr := m.registers[RegR0]
+			/*ptr := m.registers[RegR0]
 			for {
 				word := m.ReadMem(ptr)
 				char := byte(word & 0xff)
@@ -264,13 +260,9 @@ func (m *VM) Step() error {
 				}
 				fmt.Printf("%c", char)
 				ptr++
-			}
+			}*/
 		case TrapVectIn:
-			fmt.Print("in() requested\n")
-			time.Sleep(time.Second * 1)
 		case TrapVectPutsp:
-			fmt.Print("putsp() requested\n")
-			time.Sleep(time.Second * 1)
 		case TrapVectHalt:
 			m.Stop()
 		default:
