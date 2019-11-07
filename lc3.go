@@ -78,10 +78,8 @@ type VM struct {
 }
 
 func NewVM() *VM {
-	ret := &VM{
-		Stdin:  make(chan Word, IOChannelsBufferSize),
-		Stdout: make(chan Word, IOChannelsBufferSize),
-	}
+	ret := &VM{}
+	ret.Reset()
 	return ret
 }
 
@@ -98,7 +96,17 @@ func (m *VM) setFlags(result Word) {
 }
 
 func (m *VM) Start() {
+	m.Reset()
 	m.running = true
+}
+
+func (m *VM) Reset() {
+	m.Stdin = make(chan Word, IOChannelsBufferSize)
+	m.Stdout = make(chan Word, IOChannelsBufferSize)
+	for i := 0; i < len(m.registers); i++ {
+		m.registers[i] = 0
+	}
+	m.instructionsExecuted = 0
 }
 
 func (m *VM) Stop() {
