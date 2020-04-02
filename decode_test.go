@@ -4,9 +4,9 @@ import "testing"
 
 func Test_signExtend(t *testing.T) {
 	type testCase struct {
-		value Word
+		value     Word
 		bitsCount uint
-		extended Word
+		extended  Word
 	}
 
 	testData := []testCase{

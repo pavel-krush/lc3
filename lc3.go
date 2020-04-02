@@ -68,7 +68,7 @@ var ErrBadInstruction = errors.New("bad instruction")
 var ErrNotRunning = errors.New("vm is not running")
 
 type VM struct {
-	memory               [math.MaxUint16 + 1]Word
+	memory               []Word
 	registers            [10]Word
 	running              bool
 	instructionsExecuted uint
@@ -77,8 +77,9 @@ type VM struct {
 	Stdout chan Word
 }
 
-func NewVM() *VM {
+func NewVM(memorySize int) *VM {
 	ret := &VM{}
+	ret.memory = make([]Word, memorySize)
 	ret.Reset()
 	return ret
 }

@@ -280,7 +280,7 @@ func parseInput(reader io.Reader) ([]Line, error) {
 	r := bufio.NewReader(reader)
 	lineno := 0
 	done := false
-	for done == false{
+	for done == false {
 		var line string
 		lineno++
 		line, err = r.ReadString('\n')

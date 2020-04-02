@@ -3,6 +3,7 @@ package lc3
 import (
 	"fmt"
 	"github.com/pkg/errors"
+	"math"
 )
 
 type labelRegistry map[string]Word
@@ -264,7 +265,7 @@ func rawWriterFunction(pass int, labels labelRegistry, m *VM, currentAddress Wor
 }
 
 func assembleVM(lines []Line) (*VM, error) {
-	ret := NewVM()
+	ret := NewVM(math.MaxUint16 + 1)
 	labels := make(labelRegistry)
 
 	for pass := pass1; pass <= pass2; pass++ {
