@@ -320,7 +320,7 @@ func (m *VM) GetRegister(register int) Word {
 }
 
 func (m *VM) GetMemorySize() int {
-	return math.MaxUint16
+	return len(m.memory)
 }
 
 func (w Word) Int() int {
