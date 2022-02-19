@@ -127,7 +127,7 @@ func (m *VM) Step() error {
 
 	instruction := m.getCurrentInstruction()
 
-	// advance PC immediately all relative PC use incremented PC
+	// advance PC immediately. all instructions use relative PC
 	m.registers[RegPC]++
 
 	opcode := getOpcode(instruction)
@@ -284,10 +284,20 @@ func (m *VM) Step() error {
 }
 
 func (m *VM) WriteMem(address Word, value Word) {
+	if int(address) >= len(m.memory) {
+		m.Stop()
+		return
+	}
+
 	m.memory[address] = value
 }
 
 func (m *VM) ReadMem(address Word) Word {
+	if int(address) >= len(m.memory) {
+		m.Stop()
+		return 0
+	}
+
 	if address == MrKbsr {
 		if len(m.Stdin) > 0 {
 			m.memory[MrKbsr] = 1 << 15
@@ -321,8 +331,4 @@ func (m *VM) GetRegister(register int) Word {
 
 func (m *VM) GetMemorySize() int {
 	return len(m.memory)
-}
-
-func (w Word) Int() int {
-	return int(int16(w))
 }

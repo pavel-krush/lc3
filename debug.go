@@ -26,7 +26,7 @@ func (m *VM) Dump(dumpMemory bool) {
 		var address Word
 		allowEmpty := false
 		emptyStreak := false
-		for address = 0; address < 0xffff-instructionsPerLine; address += instructionsPerLine {
+		for address = 0; address < 0xffff-instructionsPerLine && int(address) < len(m.memory); address += instructionsPerLine {
 			var words []Word
 			isEmpty := true
 			var j Word
